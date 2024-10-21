@@ -1,0 +1,24 @@
+# Python
+*.py[cod]
+__pycache__/
+*.pyo
+
+# Django
+db.sqlite3
+*.sqlite3
+/media/
+/static/
+/staticfiles/
+*.log
+*.pot
+*.pyc
+*.pyo
+*/migrations/*
+
+# Environments
+venv/
+env/
+*.env
+*.secret
+
+
