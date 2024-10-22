@@ -10,14 +10,38 @@ class Base(models.Model):
     class Meta:
         abstract = True
     
+    
+    
 class Usuarios(AbstractUser):
-    groups = models.ManyToManyField(Group, related_name='api_usuarios_groups')
-    user_permissions = models.ManyToManyField(Permission, related_name='api_usuarios_permissions')
-    role = models.CharField(max_length=80, choices=[
-        ('admin', 'Admin'),
+    groups = models.ManyToManyField(
+        Group,
+        verbose_name='groups',
+        blank=True,
+        related_name='custom_user_groups',  
+        related_query_name='custom_user'
+    )
+    user_permissions = models.ManyToManyField(
+        Permission,
+        verbose_name='user permissions',
+        blank=True,
+        related_name='custom_user_permissions',  
+        related_query_name='custom_user'
+    )
+    
+    cargo = models.CharField(max_length=80, choices=[
+        ('admin', 'Administrador'),
         ('gerente', 'Gerente'),
-        ('funcionario', 'Funcionario'),
+        ('funcionario', 'Funcionário'),
     ])
+
+    class Meta:
+        verbose_name = 'Usuário'
+        verbose_name_plural = 'Usuários'
+
+    def __str__(self):
+        return self.username
+
+
     
 class Produto(Base):
     nome = models.CharField(max_length=100)
@@ -110,12 +134,16 @@ class Pagamento(Base):
     
     
 class LogAcao(Base):
-    Usuarios = models.ForeignKey(Usuarios, on_delete=models.CASCADE)
+    usuario = models.ForeignKey(Usuarios, on_delete=models.CASCADE)  
     acao = models.CharField(max_length=200)
     data_acao = models.DateTimeField(auto_now_add=True)
     
     def __str__(self) -> str:
-        return f'{self.Usuarios.Usuariosname} - {self.acao} - {self.data_acao}'
+        return f'{self.usuario.username} - {self.acao} - {self.data_acao}'  #
+    
+    class Meta:
+        verbose_name = 'Log de Ação'
+        verbose_name_plural = 'Logs de Ações'
     
     
     
