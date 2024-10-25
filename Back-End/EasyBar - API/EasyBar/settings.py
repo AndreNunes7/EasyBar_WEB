@@ -62,7 +62,7 @@ WSGI_APPLICATION = 'EasyBar.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'easybar_db',  
+        'NAME': 'easy_bar',  
         'USER': 'root',       
         'PASSWORD': 'a88387717',    
         'HOST': '127.0.0.1',               
