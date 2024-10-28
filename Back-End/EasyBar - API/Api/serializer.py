@@ -26,7 +26,7 @@ class UserSerializer(serializers.ModelSerializer):
         
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Usuarios
+        model = Usuario
         fields = ['id', 'username', 'is_active', 'is_staff', 'cargo']
 
         extra_kwargs = {
@@ -44,7 +44,7 @@ class UserSerializer(serializers.ModelSerializer):
         return nome
 
 
-class ProductSerializer(serializers.ModelSerializer):
+class ProdutoSerializer(serializers.ModelSerializer):
     class Meta:
         model = Produto
         fields = '__all__'
@@ -64,22 +64,42 @@ class ReceitasSerializer(serializers.ModelSerializer):
         fields = '__all__'
         
        
-       
-class MesaSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Mesa
-        fields = '__all__'
-        
-        
         
 class FornecedorSerializer(serializers.ModelSerializer):
     class Meta:
         model = Fornecedor
         fields = ['id', 'nome', 'documento', 'endereco', 'telefone', 'email']
 
-class PagamentoFornecedorSerializer(serializers.ModelSerializer):
-    fornecedor = FornecedorSerializer()  # Inclui informações do fornecedor
+
+class PagamentoSerializer(serializers.ModelSerializer):
+    fornecedor = FornecedorSerializer() 
 
     class Meta:
-        model = PagamentoFornecedor
-        fields = ['fornecedor', 'descricao', 'metodo_pagamento', 'valor_pago', 'data_pagamento']
+        model = Pagamento
+        fields = ['fornecedor', 'produto', 'descricao', 'metodo_pagamento', 'valor_pago', 'data_pagamento']
+        
+        
+        
+class RelatorioSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Relatorio
+        fields = '__all__',
+        
+        
+class FinanceiroSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Financeiro
+        fields = '__all__'
+        
+        
+        
+class DashboardSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Dashboard
+        fields = '__all__'
+        
+        
+class MovimentoEstoqueSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = MovimentacaoEstoque
+        fields = '__all__'

@@ -5,29 +5,43 @@ from .Views import *
 urlpatterns = [
     
     # Users CRUD:
-    path('users/', usuarios_views.get_users_all, name='listar_usuarios',),
-    path('users/add/', usuarios_views.post_user, name='inserir_usuario'),
+    path('users/', usuarios.get_users_all, name='listar_usuarios',),
+    path('users/add/', usuarios.post_user, name='inserir_usuario'),
     
     # Produtos CRUD:
-    path('produtos/', produtos_views.get_produtos_all, name='listar_produtos'),  
-    path('produtos/add/', produtos_views.post_produtos, name='inserir_produto'),
+    path('produtos/', produtos.get_produtos_all, name='listar_produtos'),  
+    path('produtos/add/', produtos.post_produtos, name='inserir_produto'),
     
     # Despesas CRUD:
-    path('despesas/', despesas_views.get_despesas_all, name='listar_despesas'),
-    path('despesas/add/', despesas_views.post_despesa, name='inserir_despesa'),
+    path('despesas/', despesas.get_despesas_all, name='listar_despesas'),
+    path('despesas/add/', despesas.post_despesa, name='inserir_despesa'),
     
     # Receitas CRUD:
-    path('receitas/', receitas_views.get_receitas_all, name='listar_receitas'),
-    path('receitas/add/', receitas_views.post_receitas, name='inserir_receita'),
+    path('receitas/', receitas.get_receitas_all, name='listar_receitas'),
+    path('receitas/add/', receitas.post_receitas, name='inserir_receita'),
     
     # pagamentos CRUD:
-    path('pagamentos/', pagamentos_views.get_pagamentos_fornecedores_all, name='listar_pagamentos'),
-    path('pagamentos/add/', pagamentos_views.post_pagamentos, name='inserir_pagamento'),
+    path('pagamentos/', pagamentos.get_pagamentos_fornecedores_all, name='listar_pagamentos'),
+    path('pagamentos/add/', pagamentos.post_pagamentos, name='inserir_pagamento'),
     
-    # Mesas CRUD:
-    path('mesas/', mesas_views.get_mesas_all, name='listar_mesas'),
-    path('mesas/add/', mesas_views.post_mesa, name='inserir_mesa'),
+    # Fornecedores CRUD:
+    path('fornecedores/', fornecedores.get_fornecedores_all, name='listar_fornecedores'),
+    path('fornecedores/add/', fornecedores.post_fornecedor, name='inserir_fornecedor'),
     
+    # Financeiro CRUD:
+    path('financeiro/', financeiro.get_financas_all, name='listar_financeiro'),
+    path('financeiro/add/', financeiro.post_financas, name='inserir_financeiro'),
+    
+    # Relatorios CRUD:
+    path('relatorios/', relatorio.get_relatorio_all, name='listar_relatorios'),
+    path('relatorios/add/', relatorio.post_relatorio, name='inserir_relatorio'),
+    
+    # Dashboard CRUD:
+    path('dashboard/', dashboard.get_dashboard, name='listar_dashboard'),
+    path('dashboard/add/', dashboard.post_dashboard, name='inserir_dashboard'),
+    
+    # Log de Estoque:
+    path('log_estoque/', logEstoque.get_movimentoEstoque_all, name='listar_log_estoque'),
     
 ]
 

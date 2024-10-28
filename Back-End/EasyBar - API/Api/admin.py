@@ -1,39 +1,39 @@
 from django.contrib import admin
-from .Models.usuarios_model import Usuarios
-from .Models.logAcao_model import LogAcao
-from .Models.pagamentos_model import PagamentoFornecedor
+from .Models.usuarios import Usuario
+from .Models.logEstoque import MovimentacaoEstoque
+from .Models.pagamentos import Pagamento
 from .Models.basic_model import Base
-from .Models.produto_model import Produto
-from .Models.receita_model import Receita
-from .Models.mesa_model import Mesa
-from .Models.despesas_model import Despesa
+from .Models.produtos import Produto
+from .Models.receita import Receita
+from .Models.despesas import Despesa
+from .Models.financeiro import Financeiro
+from .Models.fornecedores import Fornecedor
+from .Models.relatorio import Relatorio
 
-@admin.register(Usuarios)
+@admin.register(Usuario)
 class UserAdmin(admin.ModelAdmin):
-    list_display = ('username', 'cargo', 'is_active', 'is_staff')
-    search_fields = ('username', 'cargo',)
+    list_display = ('nome', 'cargo', 'is_active', 'is_staff')
+    search_fields = ('nome', 'cargo',)
     list_filter = ('cargo', 'is_active')
-    ordering = ('username',)
+    ordering = ('nome',)
+
+
 
 @admin.register(Produto)
 class ProdutoAdmin(admin.ModelAdmin):
-    list_display = ('nome', 'preco', 'estoque', 'categoria')
-    search_fields = ('nome', 'categoria', 'estoque')
-    list_filter = ('categoria',)
+    list_display = ('nome', 'categoria', 'preco', 'quantidade_estoque', 'fornecedor', 'data_validade')
+    search_fields = ('nome', 'categoria', 'fornecedor__nome')
+    list_filter = ('categoria', 'fornecedor', 'data_validade')
     ordering = ('nome',)
 
-@admin.register(Mesa)
-class MesaAdmin(admin.ModelAdmin):
-    list_display = ('numero', 'capacidade', 'status')
-    list_filter = ('status',)
-    ordering = ('numero',)
+
 
 @admin.register(Receita)
 class ReceitaAdmin(admin.ModelAdmin):
-    list_display = ('produto', 'quantidade', 'valor_total', 'data')
-    search_fields = ('produto__nome',)
-    list_filter = ('data',)
-    ordering = ('-data',)
+    list_display = ('produto', 'quantidade', 'valor_total', 'data', 'descricao')
+    search_fields = ('produto__nome', 'descricao')
+    list_filter = ('data', 'produto')
+    ordering = ('data',)
 
 @admin.register(Despesa)
 class DespesaAdmin(admin.ModelAdmin):
@@ -42,14 +42,42 @@ class DespesaAdmin(admin.ModelAdmin):
     list_filter = ('categoria', 'data')
     ordering = ('data',)
 
-@admin.register(PagamentoFornecedor)
+@admin.register(Pagamento)
 class PagamentoAdmin(admin.ModelAdmin):
-    list_display = ('metodo_pagamento', 'valor_pago', 'data_pagamento')
-    list_filter = ('metodo_pagamento', 'data_pagamento')
+    list_display = ('fornecedor', 'produto', 'valor_pago', 'metodo_pagamento', 'data_pagamento', 'descricao')
+    search_fields = ('fornecedor__nome', 'produto__nome', 'descricao')
+    list_filter = ('metodo_pagamento', 'data_pagamento', 'fornecedor')
     ordering = ('-data_pagamento',)
 
-@admin.register(LogAcao)
-class LogAcaoAdmin(admin.ModelAdmin):
-    list_display = ('usuario', 'acao', 'data_acao')
-    list_filter = ('data_acao', 'usuario')
-    ordering = ('-data_acao',)
+@admin.register(MovimentacaoEstoque)
+class LogMovimentoEstoqueAdmin(admin.ModelAdmin):
+    list_display = ('produto', 'quantidade', 'tipo_movimentacao', 'data_movimentacao', 'descricao')
+    search_fields = ('produto__nome', 'descricao')
+    list_filter = ('tipo_movimentacao', 'data_movimentacao', 'produto')
+    ordering = ('-data_movimentacao',)
+
+
+@admin.register(Financeiro)
+class FinanceiroAdmin(admin.ModelAdmin):
+    list_display = ('total_lucro', 'total_despesas', 'data', 'lucro')
+    list_filter = ('data', 'lucro')
+    ordering = ['-data']
+    
+    
+    
+@admin.register(Relatorio)
+class RelatorioAdmin(admin.ModelAdmin):
+    list_display = ('tipo', 'data_inicio', 'data_fim')
+    list_filter = ('tipo', 'data_inicio', 'data_fim')
+    ordering = ['-data_inicio']
+    
+    
+    
+@admin.register(Fornecedor)
+class FornecedorAdmin(admin.ModelAdmin):
+    list_display = ('nome', 'telefone', 'data_cadastro')
+    list_filter = ('nome',)
+    ordering = ['-data_cadastro']
+    
+    
+    

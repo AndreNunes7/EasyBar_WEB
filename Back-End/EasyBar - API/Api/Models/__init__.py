@@ -1,11 +1,14 @@
-from .fornecedor_model import Fornecedor
-from .logAcao_model import LogAcao
-from .produto_model import Produto
-from .usuarios_model import Usuarios
-from .mesa_model import Mesa
-from .receita_model import Receita
-from .despesas_model import Despesa
-from .pagamentos_model import PagamentoFornecedor
+from .fornecedores import Fornecedor
+from .produtos import Produto
+from .usuarios import Usuario
+from .receita import Receita
+from .despesas import Despesa
+from .pagamentos import Pagamento
+from .fornecedores import Fornecedor
+from .dashboard import Dashboard
+from .financeiro import Financeiro
+from .relatorio import Relatorio
+from .logEstoque import MovimentacaoEstoque
 from .basic_model import Base
 
 
