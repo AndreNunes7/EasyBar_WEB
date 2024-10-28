@@ -18,7 +18,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
     return (
         <html lang="pt-br">
             <body
-                className={`${inclisive_sans} h-screen`}
+                className={`${inclisive_sans.className} h-screen`}
                 style={{ display: 'grid', gridTemplateRows: '80px 1fr' }}
             >
                 <Header />
