@@ -1,13 +1,19 @@
+from django.forms import ValidationError
 from rest_framework import serializers
+
+from Api.Auth.validators import UnicodeUsernameValidator
 from .Models import *
+from .Auth import valida_password
+from django.contrib.auth.hashers import make_password
+
 """
 Get all users:   
 
 Examples:
 
-class UserSerializer(serializers.ModelSerializer):
+class CadastroSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Usuarios
+        model = Cadastros
         fields = '__all__'  
 """
      
@@ -17,31 +23,50 @@ Get User specific information:
 
 Examples: 
 
-class UserSerializer(serializers.ModelSerializer):
+class CadastroSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Usuarios
+        model = Cadastros
         fields = ['id', 'username', 'first_name', 'last_name', 'is_active', 'is_staff', 'date_joined', 'cargo']
 """
      
         
-class UserSerializer(serializers.ModelSerializer):
+
+
+class CadastroSerializer(serializers.ModelSerializer):
+    username_validator = UnicodeUsernameValidator()
+
     class Meta:
-        model = Usuario
-        fields = ['id', 'username', 'is_active', 'is_staff', 'cargo']
+        model = Cadastro
+        fields = ['username', 'password', 'papel', 'cargo', 'telefone']
 
-        extra_kwargs = {
-            'username': {'required': True, 'allow_blank': False},
-            'cargo': {'required': False},
-        }
 
-    def valida_username(self, nome):
-        if nome.isdigit():
+    def validate_username(self, value):
+        self.username_validator(value)
+
+        if value.isdigit():
             raise serializers.ValidationError("O nome de usuário não pode conter apenas dígitos")
         
-        if ' ' in nome:
-            raise serializers.ValidationError("O nome de usuário não pode conter espaço em branco")
+        if ' ' in value:
+            raise serializers.ValidationError("O nome de usuário não pode conter espaços em branco")
         
-        return nome
+        return value
+    def validate_password(self, value):
+        username = self.initial_data.get('username')  
+        try:
+            valida_password(value, username=username) 
+        except ValidationError as e:
+            raise serializers.ValidationError(e.messages)
+        return value
+
+    def create(self, validated_data):
+        validated_data['password'] = make_password(validated_data['password'])
+        return super().create(validated_data)
+
+
+
+
+
+
 
 
 class ProdutoSerializer(serializers.ModelSerializer):

@@ -1,5 +1,6 @@
 from pathlib import Path
 
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -10,6 +11,9 @@ SECRET_KEY = 'django-insecure-_hzpxjpa1xe*_8o1@g(7!&tzgfo5&5(ke63_=ov^&#@@@^h*pv
 DEBUG = True
 
 ALLOWED_HOSTS = []
+
+
+
 
 
 # Application definition
@@ -23,7 +27,25 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'Api',
     'rest_framework',
+    'rest_framework_simplejwt',
 ]
+
+
+
+
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        # 'rest_framework.authentication.TokenAuthentication',
+        # 'rest_framework.authentication.SessionAuthentication',
+        # 'rest_framework_simplejwt.authentication.JWTAuthentication',
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ],
+    # 'DEFAULT_PERMISSION_CLASSES': [
+    #      'rest_framework.permissions.IsAuthenticated',
+    # ],
+  
+}
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

@@ -1,6 +1,6 @@
 from .fornecedores import Fornecedor
 from .produtos import Produto
-from .usuarios import Usuario
+from .cadastros import Cadastro
 from .receita import Receita
 from .despesas import Despesa
 from .pagamentos import Pagamento

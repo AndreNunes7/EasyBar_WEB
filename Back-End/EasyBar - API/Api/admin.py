@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .Models.usuarios import Usuario
+from .Models.cadastros import Cadastro
 from .Models.logEstoque import MovimentacaoEstoque
 from .Models.pagamentos import Pagamento
 from .Models.basic_model import Base
@@ -10,12 +10,12 @@ from .Models.financeiro import Financeiro
 from .Models.fornecedores import Fornecedor
 from .Models.relatorio import Relatorio
 
-@admin.register(Usuario)
-class UserAdmin(admin.ModelAdmin):
-    list_display = ('nome', 'cargo', 'is_active', 'is_staff')
-    search_fields = ('nome', 'cargo',)
+@admin.register(Cadastro)
+class UsuarioAdmin(admin.ModelAdmin):
+    list_display = ('username', 'cargo', 'is_active', 'is_staff', 'is_superuser')
+    search_fields = ('username', 'cargo')
     list_filter = ('cargo', 'is_active')
-    ordering = ('nome',)
+    ordering = ('username',)
 
 
 

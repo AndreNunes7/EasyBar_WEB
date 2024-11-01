@@ -6,7 +6,7 @@ class ApiConfig(AppConfig):
     name = 'Api'
 
     def ready(self):
-        from Api.Models.usuarios import Usuario
+        from Api.Models.cadastros import Cadastro
         from Api.Models.basic_model import Base
         from Api.Models.receita import Receita
         from Api.Models.despesas import Despesa
