@@ -9,6 +9,8 @@ import { Header } from "@/components/Header";
 import { NavBar } from "@/components/Navbar";
 import DashBoard from './(pages)/dashboard/page';
 import FormCadastro from '@/components/cadastros';
+import FormEstoque from '@/components/estoque';
+import Estoque from './(pages)/estoque/page';
 
 const inclisive_sans = Inclusive_Sans({
     subsets: ['latin'],
@@ -37,6 +39,8 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
                             <Route path="/" element={<div>{children}</div>} />
                             <Route path="/dashboard" element={<DashBoard />} />
                             <Route path="/cadastros" element={<FormCadastro />} />
+                            <Route path="/estoque" element={<Estoque />} />
+
                             {/* Adicione mais rotas conforme necessário */}
                         </Routes>
                     </Router>
